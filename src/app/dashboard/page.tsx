@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { Card } from '@/components/common/Card';
 import { Spinner } from '@/components/common/Spinner';
 import { KpiCardList } from '@/components/dashboard/KpiCards/KpiCardList';
@@ -16,9 +16,23 @@ export default function DashboardPage() {
   const { data, loading, error } = useSalesData();
   const { slicers, toggle } = useSlicers();
 
+  // Cross-filter: a clicked hour on the chart narrows the KPI cards to that hour.
+  // Clicking the same hour again clears it.
+  const [selectedHour, setSelectedHour] = useState<string | null>(null);
+  const handleSelectHour = useCallback((hour: string) => {
+    setSelectedHour((prev) => (prev === hour ? null : hour));
+  }, []);
+
   // Recompute everything from the filtered set whenever data or slicers change.
   const filtered = useMemo(() => filterRecords(data, slicers), [data, slicers]);
-  const measures = useMemo(() => computeMeasures(filtered), [filtered]);
+
+  // KPI cards also honor the chart cross-filter (selected hour); the chart
+  // itself always shows all 24 hours so other hours stay clickable.
+  const kpiRecords = useMemo(
+    () => (selectedHour ? filtered.filter((r) => r.hour === selectedHour) : filtered),
+    [filtered, selectedHour],
+  );
+  const measures = useMemo(() => computeMeasures(kpiRecords), [kpiRecords]);
   const chartData = useMemo(() => aggregateByHour(filtered), [filtered]);
 
   if (loading) {
@@ -49,7 +63,11 @@ export default function DashboardPage() {
 
       {/* Combo chart, full width. */}
       <Card className="p-4">
-        <SalesComboChart data={chartData} />
+        <SalesComboChart
+          data={chartData}
+          selectedHour={selectedHour}
+          onSelectHour={handleSelectHour}
+        />
       </Card>
     </div>
   );
