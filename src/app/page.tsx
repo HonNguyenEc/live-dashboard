@@ -1,0 +1,6 @@
+import { redirect } from 'next/navigation';
+
+/** Root just forwards to the dashboard; middleware handles the auth gate. */
+export default function Home() {
+  redirect('/dashboard');
+}
