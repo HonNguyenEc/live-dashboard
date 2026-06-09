@@ -6,15 +6,15 @@ import { cn } from '@/lib/common/cn';
 type SlicerItemProps = {
   value: string;
   selected: boolean;
-  onToggle: (value: string, shiftKey: boolean) => void;
+  onToggle: (value: string, multi: boolean) => void;
 };
 
 export function SlicerItem({ value, selected, onToggle }: SlicerItemProps) {
   return (
     <button
       type="button"
-      // Pass shiftKey through so the hook can do single vs multi selection.
-      onClick={(e) => onToggle(value, e.shiftKey)}
+      // Ctrl (or Cmd on Mac) = multi-select; plain click = single select.
+      onClick={(e) => onToggle(value, e.ctrlKey || e.metaKey)}
       className={cn(
         'flex w-full items-center rounded px-2 py-1 text-left hover:bg-black/5',
         selected && 'bg-accent/15',

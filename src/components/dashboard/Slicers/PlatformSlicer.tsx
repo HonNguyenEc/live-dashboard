@@ -5,7 +5,7 @@ import { SlicerItem } from './SlicerItem';
 
 type PlatformSlicerProps = {
   selected: string[];
-  onToggle: (value: string, shiftKey: boolean) => void;
+  onToggle: (value: string, multi: boolean) => void;
 };
 
 export function PlatformSlicer({ selected, onToggle }: PlatformSlicerProps) {

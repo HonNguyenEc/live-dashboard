@@ -44,7 +44,7 @@ Mật khẩu tất cả là `123456`:
 ## Cách dùng slicer (giống Power BI)
 
 - **Click** vào 1 giá trị: chọn **duy nhất** giá trị đó (bỏ chọn nếu nó đang là lựa chọn duy nhất).
-- **Shift + click**: thêm/bớt giá trị vào multi-selection.
+- **Ctrl + click** (Cmd trên Mac): thêm/bớt giá trị vào multi-selection.
 - Không chọn gì = hiển thị **tất cả**.
 - KPI và chart cập nhật **tức thì** khi đổi slicer (lọc/aggregate ở client).
 

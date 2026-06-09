@@ -6,7 +6,7 @@ import { SlicerItem } from './SlicerItem';
 
 type BrandSlicerProps = {
   selected: string[];
-  onToggle: (value: string, shiftKey: boolean) => void;
+  onToggle: (value: string, multi: boolean) => void;
 };
 
 export function BrandSlicer({ selected, onToggle }: BrandSlicerProps) {

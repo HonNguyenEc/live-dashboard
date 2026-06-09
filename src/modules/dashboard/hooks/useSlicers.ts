@@ -12,19 +12,19 @@ const EMPTY: SlicerState = { platforms: [], brands: [] };
  *
  * - Plain click on a value: select ONLY that value (replace previous selection).
  *   Clicking the value that is already the sole selection clears it (back to "all").
- * - SHIFT + click: toggle the value in/out of the current multi-selection.
+ * - CTRL (or CMD on Mac) + click: toggle the value in/out of the multi-selection.
  * - Empty selection on a dimension = no filter (show all).
  */
 export function useSlicers() {
   const [slicers, setSlicers] = useState<SlicerState>(EMPTY);
 
-  const toggle = useCallback((dimension: SlicerDimension, value: string, shiftKey: boolean) => {
+  const toggle = useCallback((dimension: SlicerDimension, value: string, multi: boolean) => {
     setSlicers((prev) => {
       const current = prev[dimension];
       const has = current.includes(value);
 
       let next: string[];
-      if (shiftKey) {
+      if (multi) {
         // Add/remove from the multi-selection.
         next = has ? current.filter((v) => v !== value) : [...current, value];
       } else {

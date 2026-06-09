@@ -8,11 +8,11 @@ import { PlatformSlicer } from './PlatformSlicer';
 
 type SlicerPanelProps = {
   slicers: SlicerState;
-  onToggle: (dimension: SlicerDimension, value: string, shiftKey: boolean) => void;
+  onToggle: (dimension: SlicerDimension, value: string, multi: boolean) => void;
 };
 
 /**
- * Platform + Brand slicers. Tip: click = single select, Shift+click = multi.
+ * Platform + Brand slicers. Tip: click = single select, Ctrl+click = multi.
  */
 export function SlicerPanel({ slicers, onToggle }: SlicerPanelProps) {
   return (
@@ -20,13 +20,13 @@ export function SlicerPanel({ slicers, onToggle }: SlicerPanelProps) {
       <Card className="px-3 py-3">
         <PlatformSlicer
           selected={slicers.platforms}
-          onToggle={(value, shift) => onToggle('platforms', value, shift)}
+          onToggle={(value, multi) => onToggle('platforms', value, multi)}
         />
       </Card>
       <Card className="px-3 py-3">
         <BrandSlicer
           selected={slicers.brands}
-          onToggle={(value, shift) => onToggle('brands', value, shift)}
+          onToggle={(value, multi) => onToggle('brands', value, multi)}
         />
       </Card>
     </>

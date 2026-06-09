@@ -8,7 +8,7 @@ type CheckboxProps = {
 
 /**
  * Presentational checkbox (the parent row owns click handling, including
- * Shift+click, so this is a non-interactive visual element).
+ * Ctrl+click, so this is a non-interactive visual element).
  */
 export function Checkbox({ checked, label, className }: CheckboxProps) {
   return (
